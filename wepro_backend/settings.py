@@ -29,15 +29,24 @@ DEBUG = True
 ALLOWED_HOSTS = ['*']
 
 
-# Application definition
 
-INSTALLED_APPS = [
-    'django.contrib.admin',
+DEFAULT_APPS =[
+     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+]
+
+PROJECT_APPS = [
+
+    'accounts',
+    'app_template',
+]
+
+
+THIRD_PARTY_APPS = [
 
     'rest_framework',
     'rest_framework.authtoken',
@@ -45,8 +54,13 @@ INSTALLED_APPS = [
     'drf_yasg',
     'corsheaders',
 
-    'accounts',
 ]
+
+
+
+# Application definition
+
+INSTALLED_APPS = DEFAULT_APPS + PROJECT_APPS + THIRD_PARTY_APPS
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
@@ -126,6 +140,14 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/5.2/howto/static-files/
 
 STATIC_URL = 'static/'
+
+# Base url to serve media files
+MEDIA_URL = '/media/'
+
+# Path where media is stored'
+MEDIA_ROOT = BASE_DIR / 'media'
+
+
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/5.2/ref/settings/#default-auto-field
