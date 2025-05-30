@@ -41,7 +41,7 @@ class GetAppTemplateSerializer(serializers.ModelSerializer):
 
     user = GetUserSerializer(read_only=True) 
 
-    additional_image= TemplateImageSerializer(read_only=True,many=True)
+    additional_image= TemplateImageSerializer(read_only=True,many=True,required=False)
 
     class Meta:
 
