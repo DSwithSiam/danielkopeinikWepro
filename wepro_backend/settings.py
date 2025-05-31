@@ -242,10 +242,12 @@ CORS_ALLOW_CREDENTIALS = True
 
 CSRF_TRUSTED_ORIGINS = [
     'http://localhost:5173',
+    'http://192.168.10.35:8000',
 ]
 
 CORS_ALLOWED_ORIGINS = [
     'http://localhost:5173',
+    'http://192.168.10.35:8000'
 ]
 
 
