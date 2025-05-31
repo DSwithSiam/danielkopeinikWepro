@@ -2,7 +2,7 @@ from django.db import models
 
 from accounts.models import CustomUser
 from code_snippet.subscription_category import subscription_category  
-from app_template.Model.template_image_model import TemplateImageModel
+
 from django.contrib.postgres.fields import JSONField
 
 
@@ -25,7 +25,7 @@ class AppTemplateModel(models.Model):
     checkout_time = models.TimeField(verbose_name='Check-out Time', null=True, blank=True)
     trips_adventure_category = models.CharField(max_length=50, verbose_name='Trips and Adventure Category',null=True,  blank=True)
 
-    additional_image = models.ManyToManyField(TemplateImageModel,related_name='template_images',null=True,blank=True)
+  
 
 
     created_at = models.DateTimeField(auto_now_add=True, verbose_name='Created At') 
@@ -33,6 +33,6 @@ class AppTemplateModel(models.Model):
 
 
     def __str__(self):
-        return f"{self.title} - {self.app_category} "  
+        return f"{self.title} - {self.app_category}"  
 
 

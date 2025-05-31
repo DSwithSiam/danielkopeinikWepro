@@ -16,3 +16,6 @@ class ProductModel(models.Model):
 
     def __str__(self):
         return f"product name : {self.product_name}"
+    
+    class Meta:
+        ordering = ['id']  # or another appropriate field
