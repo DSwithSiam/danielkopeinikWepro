@@ -47,8 +47,6 @@ INSTALLED_APPS = [
 
     'accounts',
     'dashboard',
-    'guide',
-    'main',
     'notifications',
     'chat_bot',
 ]
