@@ -25,7 +25,7 @@ class AppTemplateModel(models.Model):
     checkout_time = models.TimeField(verbose_name='Check-out Time', null=True, blank=True)
     trips_adventure_category = models.CharField(max_length=50, verbose_name='Trips and Adventure Category',null=True,  blank=True)
 
-  
+   
 
 
     created_at = models.DateTimeField(auto_now_add=True, verbose_name='Created At') 

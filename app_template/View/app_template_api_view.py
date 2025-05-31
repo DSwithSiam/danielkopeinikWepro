@@ -11,7 +11,7 @@ from app_template.Serialiizer.app_template_serializer import (
 from app_template.Model.app_template_model import AppTemplateModel 
 
 from app_template.custom_permission import IsAdminOrOwner
-from rest_framework.parsers import MultiPartParser, FormParser
+from rest_framework.parsers import MultiPartParser, FormParser,JSONParser
 
 
 
@@ -22,7 +22,7 @@ class AppTemplateModelViewSet(ModelViewSet):
     """
     queryset = AppTemplateModel.objects.select_related('user')
     serializer_class = GetAppTemplateSerializer
-    parser_classes = [MultiPartParser, FormParser]
+    parser_classes = [JSONParser, MultiPartParser, FormParser]
 
 
     # permission_classes = [IsAdminOrOwner]  # Custom permission to restrict access based on user role and ownership
