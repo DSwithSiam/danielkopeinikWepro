@@ -20,3 +20,21 @@ class PostModelViewSet(ModelViewSet):
             return CreatePosterSerializer
         
         return GetPosterModelSerializer
+    
+
+    def get_queryset(self):
+        queryset = super().get_queryset()
+
+
+        app_template = self.request.query_params.get('app_template')
+
+        if app_template:
+
+            queryset = queryset.filter(app_template=app_template)
+
+        queryset = queryset.order_by('-created_at')
+
+        
+        
+
+        return queryset
