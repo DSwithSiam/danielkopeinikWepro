@@ -36,12 +36,7 @@ class AppTemplateModelViewSet(ModelViewSet):
             return CreateAppTemplateSerializer
         
         return GetAppTemplateSerializer 
-    
 
-    # def perform_create(self, serializer):
-    #     serializer.save(user=self.request.user)
-        # Automatically set the user to the current authenticated user
-        # when creating a new AppTemplateModel instance.
 
 
     def get_queryset(self):

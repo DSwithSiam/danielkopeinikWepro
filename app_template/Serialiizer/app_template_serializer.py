@@ -31,8 +31,6 @@ from app_template.Model.template_image_model import TemplateImageModel
 #             TemplateImageModel.objects.create(template=app_template, **image_data)
 #         return app_template]
 
-
-
 class CreateAppTemplateSerializer(serializers.ModelSerializer):
     template_images = TemplateImageSerializer(many=True, write_only=True, required=False)
 
@@ -41,16 +39,31 @@ class CreateAppTemplateSerializer(serializers.ModelSerializer):
         fields = '__all__'
 
     def create(self, validated_data):
+      
         template_images_data = validated_data.pop('template_images', [])
-        app_template = AppTemplateModel.objects.create(**validated_data)
 
         print(template_images_data)
+
+        request = self.context.get('request')
+        index = 0
+        while True:
+            image_file = request.FILES.get(f'template_images[{index}][image]')
+            image_title = request.data.get(f'template_images[{index}][image_title]')
+            if not image_file and not image_title:
+                break
+            template_images_data.append({
+                'image': image_file,
+                'image_title': image_title
+            })
+            index += 1
+
+        app_template = AppTemplateModel.objects.create(**validated_data)
 
         for image_data in template_images_data:
             TemplateImageModel.objects.create(template=app_template, **image_data)
 
         return app_template
-    
+
 
 
 class GetAppTemplateSerializer(serializers.ModelSerializer):
