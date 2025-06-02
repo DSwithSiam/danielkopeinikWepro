@@ -10,13 +10,9 @@ from app_template.View.template_image_view import TemplateImageModelViewSet
 
 router = DefaultRouter() 
 
-router.register(r'app-templates', AppTemplateModelViewSet, basename='app_template')
-router.register(r'products',ProductModelViewSet,basename='product_base')
-router.register(r'')
-
-
-
-
+router.register(r'app-templates/', AppTemplateModelViewSet, basename='app_template')
+router.register(r'products/', ProductModelViewSet, basename='product_base')
+# router.register(r'template-images/', TemplateImageModelViewSet, basename='template_image')
 
 urlpatterns = [
     path('', include(router.urls)),
