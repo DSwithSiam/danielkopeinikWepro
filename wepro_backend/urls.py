@@ -10,6 +10,7 @@ urlpatterns = [
 
     path('api/v1/auth/', include('accounts.urls')),
     path('api/v1/app/template/', include('app_template.urls')),
+    path('api/v1/app/poster/', include('poster.urls')),
 
 ]
 # if settings.DEBUG:

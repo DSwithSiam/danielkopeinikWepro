@@ -80,3 +80,12 @@ class GetAppTemplateSerializer(serializers.ModelSerializer):
 
 
 
+
+
+
+class UpdateAppTemplateSerializer(serializers.ModelSerializer):
+    # template_images = TemplateImageSerializer(many=True, write_only=True, required=False)
+
+    class Meta:
+        model = AppTemplateModel
+        fields = '__all__'

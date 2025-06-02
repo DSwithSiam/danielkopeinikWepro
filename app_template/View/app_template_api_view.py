@@ -5,7 +5,8 @@ from  rest_framework.viewsets import ModelViewSet
 
 from app_template.Serialiizer.app_template_serializer import (
     CreateAppTemplateSerializer,
-    GetAppTemplateSerializer
+    GetAppTemplateSerializer,
+    UpdateAppTemplateSerializer
 )
 
 from app_template.Model.app_template_model import AppTemplateModel 
@@ -32,10 +33,13 @@ class AppTemplateModelViewSet(ModelViewSet):
     def get_serializer_class(self):
 
 
-        if self.action in ['create', 'update', 'partial_update','destroy']:
+        if self.action in ['create',  'destroy']:
             return CreateAppTemplateSerializer
         
-        return GetAppTemplateSerializer 
+        elif self.action  in ['update','partial-update']:
+            return UpdateAppTemplateSerializer
+        else:
+            return GetAppTemplateSerializer 
 
 
 

@@ -55,6 +55,7 @@ PROJECT_APPS = [
 
     'accounts',
     'app_template',
+    'poster'
 ]
 
 
