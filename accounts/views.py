@@ -76,7 +76,6 @@ def social_signup_signin(request):
         if created:
             user.first_name = first_name
             user.last_name = last_name
-            user.role = role
             user.is_active = True
             user.auth_provider = auth_provider
             user.is_staff = True if role == 'admin' else False
