@@ -15,37 +15,36 @@ from app_template.Model.template_image_model import TemplateImageModel
 
 class CreateAppTemplateSerializer(serializers.ModelSerializer):
     
-    template_images= TemplateImageSerializer(read_only=True,many=False,required=False)
-
-    image_titles= serializers.ListField(
-        child= serializers.CharField(),
-        write_only=True,
-        required=False
-    )
+    template_images = TemplateImageSerializer(many=True, write_only=True, required=False)
 
     class Meta:
         model = AppTemplateModel
         fields = '__all__'
-        read_only_fields = ['created_at', 'updated_at']
 
-    
+    def create(self, validated_data):
+      
+        template_images_data = validated_data.pop('template_images', [])
 
-    def create(self,validated_data):
-        images= validated_data.pop('template_images',[])
-        titles = validated_data.pop('image_titles',[])
+        print(template_images_data)
+
+        request = self.context.get('request')
+        index = 0
+        while True:
+            image_file = request.FILES.get(f'template_images[{index}][image]')
+            image_title = request.data.get(f'template_images[{index}][image_title]')
+            if not image_file and not image_title:
+                break
+            template_images_data.append({
+                'image': image_file,
+                'image_title': image_title
+            })
+            index += 1
 
         app_template = AppTemplateModel.objects.create(**validated_data)
 
+        for image_data in template_images_data:
+            TemplateImageModel.objects.create(template=app_template, **image_data)
 
-        for index, image in enumerate(images):
-            title = titles[index] if index < len(titles) else None
-            TemplateImageModel.objects.create(
-                template=app_template,
-                image=image,
-                image_title=title
-            )
-
-            
         return app_template
 
 
