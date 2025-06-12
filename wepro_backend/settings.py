@@ -43,10 +43,14 @@ DEFAULT_APPS =[
 PROJECT_APPS = [
 
     'app_template',
+<<<<<<< HEAD
     'accounts',
     'dashboard',
     'notifications',
     'chat_bot',
+=======
+    'poster'
+>>>>>>> origin/feature_rahim
 ]
 
 

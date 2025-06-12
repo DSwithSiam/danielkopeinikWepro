@@ -25,7 +25,11 @@ urlpatterns = [
 
     path('api/v1/auth/', include('accounts.urls')),
     path('api/v1/app/template/', include('app_template.urls')),
+<<<<<<< HEAD
     path('swagger/', schema_view.with_ui('swagger', cache_timeout=0), name='swagger-docs'),
+=======
+    path('api/v1/app/poster/', include('poster.urls')),
+>>>>>>> origin/feature_rahim
 
 ]
 
