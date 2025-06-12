@@ -9,12 +9,16 @@ class ChatBot(models.Model):
         ('modern', 'Modern'),
         ('classic', 'Classic'),
         ('minimal', 'Minimal'),
-    ])
+    ],
+    null=True,
+    blank=True
+    )
 
     image = models.ImageField(upload_to='chat_bots_images/', blank=True, null=True)
     csv_file = models.FileField(upload_to='chat_bots_csv/', blank=True, null=True)
     website_link = models.URLField(blank=True, null=True)
-    unique_id = models.UUIDField(default=models.UUIDField().default, editable=False, unique=True)
+    # unique_id = models.UUIDField(default=models.UUIDField().default, editable=False, unique=True)
+    unique_id = models.UUIDField(default=models.UUIDField().default,  blank=True, null=True)
     count_messages = models.IntegerField(default=0)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)

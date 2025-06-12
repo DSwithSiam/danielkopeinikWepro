@@ -14,8 +14,3 @@ class TemplateImageSerializer(serializers.ModelSerializer):
 
 
 
-
-class GetTemplateImageSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = TemplateImageModel
-        fields = ['image', 'image_title']
