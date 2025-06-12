@@ -45,6 +45,7 @@ def chatMessage(request):
 
             # condition to check if the subscription is active and message limit is not exceeded
             
+            
             # Here you would typically call your AI model to get a response based on the message
             bot_response = " "
 
