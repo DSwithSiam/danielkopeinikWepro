@@ -10,11 +10,30 @@ from app_template.Serialiizer.template_image_serializer import TemplateImageSeri
 from app_template.Model.template_image_model import TemplateImageModel
 
 
+
 # create serializer for AppTemplateModel 
 
 
-class CreateAppTemplateSerializer(serializers.ModelSerializer):
+
+# class CreateAppTemplateSerializer(serializers.ModelSerializer):
+
+
+# class CreateAppTemplateSerializer(serializers.ModelSerializer):
     
+#     template_images = TemplateImageSerializer(many=True, write_only=True)
+
+#     class Meta:
+#         model = AppTemplateModel
+#         fields = '__all__'
+
+#     def create(self, validated_data):
+#         template_images_data = validated_data.pop('template_images', [])
+#         app_template = AppTemplateModel.objects.create(**validated_data)
+#         for image_data in template_images_data:
+#             TemplateImageModel.objects.create(template=app_template, **image_data)
+#         return app_template]
+
+class CreateAppTemplateSerializer(serializers.ModelSerializer):
     template_images = TemplateImageSerializer(many=True, write_only=True, required=False)
 
     class Meta:
@@ -49,8 +68,6 @@ class CreateAppTemplateSerializer(serializers.ModelSerializer):
 
 
 
-
-
 class GetAppTemplateSerializer(serializers.ModelSerializer):
 
     user = GetUserSerializer(read_only=True) 
@@ -65,3 +82,12 @@ class GetAppTemplateSerializer(serializers.ModelSerializer):
 
 
 
+
+
+
+class UpdateAppTemplateSerializer(serializers.ModelSerializer):
+    # template_images = TemplateImageSerializer(many=True, write_only=True, required=False)
+
+    class Meta:
+        model = AppTemplateModel
+        fields = '__all__'
