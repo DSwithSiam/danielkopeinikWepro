@@ -12,7 +12,7 @@ router = DefaultRouter()
 
 router.register(r'app-templates', AppTemplateModelViewSet, basename='app_template')
 router.register(r'products', ProductModelViewSet, basename='product_base')
-router.register(r'template-images/', TemplateImageModelViewSet, basename='template_image')
+router.register(r'template-images', TemplateImageModelViewSet, basename='template_image')
 
 urlpatterns = [
     path('', include(router.urls)),

@@ -14,3 +14,14 @@ class TemplateImageSerializer(serializers.ModelSerializer):
 
 
 
+
+class GetTemplateImageSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = TemplateImageModel
+        fields = ['id','image', 'image_title']
+
+
+
+
+
+
