@@ -5,6 +5,8 @@ from poster.View.membership_view import MembershipPlanViewSet
 
 from  poster.View.user_membership_view  import UserMembershipModelViewSet
 
+from poster.View.feature_view  import FetureBasePriceModelViewSet
+
 from rest_framework.routers import DefaultRouter
 
 router = DefaultRouter()
@@ -13,6 +15,7 @@ router = DefaultRouter()
 router.register('registers',PostModelViewSet,basename='poster_urls')
 router.register('membership',MembershipPlanViewSet,basename='membership_urls')
 router.register('user/membership',UserMembershipModelViewSet,basename='user_membership_urls')
+router.register('feature/base/price',FetureBasePriceModelViewSet,basename='feature_urls')
 
 
 

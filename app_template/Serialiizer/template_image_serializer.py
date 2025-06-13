@@ -16,9 +16,7 @@ class TemplateImageSerializer(serializers.ModelSerializer):
 
 
 
-<<<<<<< HEAD
 
-<<<<<<< HEAD
 
 class GetTemplateImageSerializer(serializers.ModelSerializer):
     class Meta:
@@ -29,14 +27,3 @@ class GetTemplateImageSerializer(serializers.ModelSerializer):
 
 
 
-
-=======
-=======
-class GetTemplateImageSerializer(serializers.ModelSerializer):
-
-    # template=GetAppTemplateSerializer(read_only=True,many=False)
-    class Meta:
-        model = TemplateImageModel
-        fields = ['image', 'image_title']
->>>>>>> origin/feature_rahim
->>>>>>> d783ca335dd59c020b82c76c5fa9c377bad83a7a
