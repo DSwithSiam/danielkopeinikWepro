@@ -15,6 +15,11 @@ from app_template.Model.template_image_model import TemplateImageModel
 
 
 
+<<<<<<< HEAD
+=======
+# class CreateAppTemplateSerializer(serializers.ModelSerializer):
+
+>>>>>>> feature_test
 
 # class CreateAppTemplateSerializer(serializers.ModelSerializer):
     

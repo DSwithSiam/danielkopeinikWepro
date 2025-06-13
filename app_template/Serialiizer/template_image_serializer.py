@@ -21,4 +21,9 @@ class GetTemplateImageSerializer(serializers.ModelSerializer):
     # template=GetAppTemplateSerializer(read_only=True,many=False)
     class Meta:
         model = TemplateImageModel
-        fields = ['image', 'image_title']
+        fields = ['id','image', 'image_title']
+
+
+
+
+

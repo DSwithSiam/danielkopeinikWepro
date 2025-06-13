@@ -9,7 +9,6 @@ urlpatterns = [
     path('login/', login, name='login'),
     path('token/', custom_token_refresh, name='custom_token_refresh'),
     path('logout/', logout, name='logout'),
-    path('profile/', profile, name='profile'),
     path('update-profile/', update_profile, name='update_profile'),
     path('password-reset-request/', pass_reset_request, name='pass_reset_request'),
     path('reset-request-activate/', reset_request_activate, name='reset_request_activate'),

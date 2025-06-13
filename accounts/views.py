@@ -76,7 +76,6 @@ def social_signup_signin(request):
         if created:
             user.first_name = first_name
             user.last_name = last_name
-            user.role = role
             user.is_active = True
             user.auth_provider = auth_provider
             user.is_staff = True if role == 'admin' else False
@@ -218,40 +217,6 @@ def logout(request):
 
 
 
-@api_view(['GET'])
-@permission_classes([IsAuthenticated])
-def profile(request):  
-    try:
-        user = request.user  
-        serializer = CustomUserSerializer(user)
-        user_data = serializer.data
-        user_data['join_date'] = user.created_at.strftime("%Y-%m-%d")
-
-        subscription_obj = Subscription.objects.filter(user=user, is_active=True).last()
-
-        if not subscription_obj:
-            subscription_data = "No active subscription found"
-            user_data['subscription_status'] = "inactive"
-        else:
-            subscription_data = {
-                'plan': subscription_obj.plan.name,
-                'start_date': subscription_obj.start_date.strftime("%Y-%m-%d"),
-                'end_date': subscription_obj.end_date.strftime("%Y-%m-%d"),
-                'user_limit': subscription_obj.user_limit,
-                'message_limit': subscription_obj.message_limit,
-            }
-            user_data['subscription_status'] = "active"
-
-        return Response({'user': user_data, 'subscription': subscription_data}, status=status.HTTP_200_OK)
-    
-    except CustomUser.DoesNotExist:
-        return Response({'detail': 'User not found'}, status=status.HTTP_404_NOT_FOUND)
-    except Exception as e:
-        return Response({'detail': str(e)}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
-
-
-
-
 
 
 @api_view(['POST'])
@@ -272,7 +237,7 @@ def pass_reset_request(request):
             # send_email(
             #     user_email = user.email, 
             #     email_subject = email_subject, 
-            #     email_body = email_body
+            #     email_body = email_body-+*9
             #     )
 
             user.otp = otp_string
@@ -306,7 +271,7 @@ def reset_request_activate(request):
 
 
 @api_view(['POST'])
-@permission_classes([IsAuthenticated])
+@permission_classes([])
 def reset_password(request):
     email = request.data.get('email')
     new_password = request.data.get('new_password')
