@@ -14,8 +14,6 @@ class MembershipPlanSerializer(serializers.ModelSerializer):
         fields = '__all__'
 
 
-
-
 class GetMembershipPlanSerializer(serializers.ModelSerializer):
 
 
