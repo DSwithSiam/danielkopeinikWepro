@@ -5,14 +5,19 @@ from rest_framework.permissions import IsAuthenticated,IsAdminUser
 
 from poster.Model.membership_model import MemberShipPlan 
 
-from poster.Serializer.membership_serializer import MembershipPlanSerializer
+from poster.Serializer.membership_serializer import (
+    
+    MembershipPlanSerializer,
+    GetMembershipPlanSerializer
+
+)
 
 
 
 class MembershipPlanViewSet(ModelViewSet):
 
     queryset = MemberShipPlan.objects.all()
-    serializer_class = MembershipPlanSerializer
+    # serializer_class = MembershipPlanSerializer
     # permission_class = [IsAuthenticated]
 
 
@@ -25,4 +30,11 @@ class MembershipPlanViewSet(ModelViewSet):
             permission_classes = [IsAuthenticated]
 
         return [ permission() for permission in permission_classes ]
+    
+    def get_serializer_class(self):
+        if self.action in ('create','update','partial_update','destroy'):
+
+            return MembershipPlanSerializer
+        
+        return GetMembershipPlanSerializer
 

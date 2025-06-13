@@ -12,7 +12,7 @@ class MemberShipPlan(models.Model):
    
 
     customer = models.ForeignKey(CustomUser,on_delete=models.CASCADE,null=True)
-    memebership_types = models.CharField(max_length=40, choices=membership_types,default='we_free',unique=True)
+    memebership_types = models.CharField(max_length=40, choices=membership_types,default='we_free')
     posting_generation= models.IntegerField(default=0)
     custom_app = models.IntegerField(default=0)
     is_ai_included = models.BooleanField(default=False)
