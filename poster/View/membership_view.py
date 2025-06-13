@@ -17,19 +17,17 @@ from poster.Serializer.membership_serializer import (
 class MembershipPlanViewSet(ModelViewSet):
 
     queryset = MemberShipPlan.objects.all()
-    # serializer_class = MembershipPlanSerializer
-    # permission_class = [IsAuthenticated]
+   
 
+    # def get_permissions(self):
 
-    def get_permission(self):
+    #     if self.action in ('create','update','partial_update','destroy'):
+    #         permission_classes = [IsAdminUser]
 
-        if self.action in ('create','update','partial_update','destroy'):
-            permission_classes = [IsAdminUser]
+    #     else:
+    #         permission_classes = [IsAuthenticated]
 
-        else:
-            permission_classes = [IsAuthenticated]
-
-        return [ permission() for permission in permission_classes ]
+    #     return [ permission() for permission in permission_classes ]
     
     def get_serializer_class(self):
         if self.action in ('create','update','partial_update','destroy'):
