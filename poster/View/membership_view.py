@@ -24,28 +24,6 @@ from poster.Serializer.membership_serializer import (
 
 class MembershipPlanViewSet(ModelViewSet):
 
-    # queryset = MemberShipPlan.objects.select_related('customer')
-   
-
-    # def get_permissions(self):
-
-    #     if self.action in ('create','update','partial_update','destroy'):
-    #         permission_classes = [IsAdminUser]
-
-    #     else:
-    #         permission_classes = [IsAuthenticated]
-
-    #     return [ permission() for permission in permission_classes ]
-    
-
-    
-    # def get_serializer_class(self):
-    #     if self.action in ('create','update','partial_update','destroy'):
-
-    #         return MembershipPlanSerializer
-        
-    #     return GetMembershipPlanSerializer
-
 
     queryset = MemberShipPlan.objects.select_related('customer')
     permission_classes = [IsAuthenticated]

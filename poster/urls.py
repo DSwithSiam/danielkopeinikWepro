@@ -2,9 +2,10 @@ from django.urls import path , include
 from poster.View.poster_view import PostModelViewSet 
 
 from poster.View.membership_view import MembershipPlanViewSet
-
-
 from poster.View.feature_view  import FetureBasePriceModelViewSet
+
+from poster.webhook import StripeWebhookAPIView
+
 
 from rest_framework.routers import DefaultRouter
 
@@ -20,4 +21,6 @@ router.register('feature/base/price',FetureBasePriceModelViewSet,basename='featu
 
 urlpatterns = [
     path('', include(router.urls)),
+    path('webhook/',StripeWebhookAPIView.as_view(),name='webhook'),
+
 ]
