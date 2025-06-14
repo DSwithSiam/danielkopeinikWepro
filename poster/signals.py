@@ -7,6 +7,7 @@ from poster.Model.membership_model  import MemberShipPlan
 
 
 @receiver(pre_save, sender=MemberShipPlan)
+
 def set_membership_defaults(sender, instance, **kwargs):
     if instance.memebership_types == 'we_free':
         instance.amount = 0

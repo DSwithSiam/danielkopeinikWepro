@@ -23,6 +23,7 @@ class StripeWebhookAPIView(APIView):
             event = stripe.Webhook.construct_event(
                 payload=payload, sig_header=sig_header, secret=STRIPE_WEBHOOK_SECRET
             )
+
         except ValueError as e:
             return Response({'error': 'Invalid payload'}, status=status.HTTP_400_BAD_REQUEST)
         except stripe.error.SignatureVerificationError as e:
@@ -37,10 +38,10 @@ class StripeWebhookAPIView(APIView):
             subscription_id = data.get("subscription")
             try:
                 user = CustomUser.objects.get(stripe_customer_id=customer_id)
-                print(f" Subscription completed for {user.email}")
+                print(f"Subscription completed for {user.email}")
                 # You can update user profile or create Subscription object here
             except CustomUser.DoesNotExist:
-                print(" User not found")
+                print("User not found")
 
         elif event_type == "invoice.paid":
             try:
