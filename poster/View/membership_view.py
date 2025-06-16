@@ -60,6 +60,7 @@ class MembershipPlanViewSet(ModelViewSet):
             payment_method_types=["card"],
             line_items=[{
                 "price": plan.stripe_price_id,
+                                               
                 "quantity": 1,
             }],
             mode="subscription",

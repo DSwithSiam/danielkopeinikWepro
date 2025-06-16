@@ -68,3 +68,53 @@ class StripeWebhookAPIView(APIView):
         # Add more event types as needed
 
         return Response({'status': 'success'}, status=status.HTTP_200_OK)
+
+
+
+
+# from django.http import HttpResponse
+# from django.views.decorators.csrf import csrf_exempt
+# from django.views.decorators.http import require_POST
+# import stripe
+
+# @csrf_exempt
+# @require_POST
+# def stripe_webhook(request):
+#     payload = request.body
+#     sig_header = request.META['HTTP_STRIPE_SIGNATURE']
+#     event = None
+
+#     try:
+#         event = stripe.Webhook.construct_event(
+#             payload, sig_header, settings.STRIPE_WEBHOOK_SECRET
+#         )
+#     except ValueError as e:
+#         # Invalid payload
+#         return HttpResponse(status=400)
+#     except stripe.error.SignatureVerificationError as e:
+#         # Invalid signature
+#         return HttpResponse(status=400)
+
+#     if event['type'] == 'checkout.session.completed':
+#         session = event['data']['object']
+#         handle_checkout_session(session)
+#     elif event['type'] == 'invoice.paid':
+#         invoice = event['data']['object']
+#         handle_subscription_payment(invoice)
+#     elif event['type'] == 'customer.subscription.deleted':
+#         subscription = event['data']['object']
+#         handle_subscription_canceled(subscription)
+
+#     return HttpResponse(status=200)
+
+# def handle_checkout_session(session):
+#     # Implement logic to handle successful checkout
+#     pass
+
+# def handle_subscription_payment(invoice):
+#     # Implement logic to handle successful subscription payment
+#     pass
+
+# def handle_subscription_canceled(subscription):
+#     # Implement logic to handle subscription cancellation
+#     pass
