@@ -21,44 +21,9 @@ class CreateAppTemplateSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = AppTemplateModel
-        fields = '__all__'
+        exclude =['user']
 
 
-
-    def validate(self,attrs):
-
-        request = self.context.get('request')
-        auth_user = request.user 
-
-        # Step 1: Check Stripe subscription
-
-        is_subscribe,message = has_active_subscription(auth_user.email)
-
-        if not is_subscribe:
-            raise serializers.ValidationError(f"You are not subscribed: {message}")
-        
-        # Step 2: Get current app template count
-
-        existing_count = AppTemplateModel.objects.filter(user=auth_user).count() or 0 
-
-        # Step 3: Get latest successful subscription plan
-
-        try:
-
-            membership=MemberShipPlan.objects.filter(
-                customer=auth_user
-            ).latest('created_at')
-
-            allowed_limit = int(membership.custom_app) 
-
-
-            if existing_count >= allowed_limit:
-                raise serializers.ValidationError('You have already exceeds the limit')
-            
-            return attrs 
-            
-        except   MemberShipPlan.DoesNotExist:
-            raise serializers.ValidationError("No active membership plan found.")
 
 
 

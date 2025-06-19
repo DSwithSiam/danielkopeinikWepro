@@ -14,6 +14,8 @@ from app_template.Model.app_template_model import AppTemplateModel
 from app_template.custom_permission import IsAdminOrOwner
 from rest_framework.parsers import MultiPartParser, FormParser,JSONParser
 
+from rest_framework.permissions import IsAuthenticated
+
 
 
 class AppTemplateModelViewSet(ModelViewSet):
@@ -22,8 +24,9 @@ class AppTemplateModelViewSet(ModelViewSet):
     Provides create, retrieve, update, and delete functionality.
     """
     queryset = AppTemplateModel.objects.select_related('user')
-    serializer_class = GetAppTemplateSerializer
+    # serializer_class = GetAppTemplateSerializer
     parser_classes = [JSONParser, MultiPartParser, FormParser]
+    permission_classes= [IsAuthenticated]
 
 
     # permission_classes = [IsAdminOrOwner]  # Custom permission to restrict access based on user role and ownership
@@ -40,6 +43,10 @@ class AppTemplateModelViewSet(ModelViewSet):
             return UpdateAppTemplateSerializer
         else:
             return GetAppTemplateSerializer 
+        
+    
+    def perform_create(self,serializer):
+        serializer.save(user=self.request.user) 
 
 
 
