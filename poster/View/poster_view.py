@@ -13,6 +13,7 @@ from poster.Serializer.poster_serializer  import (
 class PostModelViewSet(ModelViewSet):
 
     queryset = PosterModel.objects.select_related('app_template')
+    pagination_class = None 
 
     def get_serializer_class(self):
 

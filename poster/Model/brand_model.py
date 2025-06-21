@@ -1,8 +1,11 @@
 from  django.db import models 
 
+from  accounts.models import CustomUser
 
 
 class BrandModel(models.Model):
+
+    customer = models.OneToOneField(CustomUser,related_name='brand_author',on_delete=models.CASCADE,null=True)
 
     company_name = models.CharField(max_length=200, unique=True)
     company_logo = models.ImageField(upload_to='app_template_images/', verbose_name='company logo image', null=True, blank=True)
