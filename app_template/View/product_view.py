@@ -11,6 +11,10 @@ from app_template.Serialiizer.product_serializer import (
 
 from rest_framework.permissions import IsAuthenticated 
 
+from  rest_framework.decorators import action 
+from rest_framework.response import Response 
+from rest_framework import status 
+
 
 
 class ProductModelViewSet(ModelViewSet):
@@ -23,5 +27,21 @@ class ProductModelViewSet(ModelViewSet):
             return CreateProductSerializer
         
         return GetProductSerializer
+    
+
+    @action(detail=False,methods=['get'],url_path='user_product')
+    def user_price_list_product(self,request):
+
+        # Here I only target to price list template to related user 
+
+        price_list_product = ProductModel.objects.filter(template__app_category='prices_lists',template__user=request.user)
+
+        if price_list_product.exists():
+            serializer = self.get_serializer(price_list_product,many=True)
+
+            return Response(serializer.data,status=status.HTTP_200_OK)
+        
+
+        return Response({'error':'No related product model found'},status=status.HTTP_404_NOT_FOUND)
     
     

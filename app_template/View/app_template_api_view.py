@@ -15,6 +15,9 @@ from app_template.custom_permission import IsAdminOrOwner
 from rest_framework.parsers import MultiPartParser, FormParser,JSONParser
 
 from rest_framework.permissions import IsAuthenticated
+from rest_framework.decorators import action 
+from rest_framework.response import Response 
+from rest_framework import status 
 
 
 
@@ -62,6 +65,16 @@ class AppTemplateModelViewSet(ModelViewSet):
 
         return queryset 
     
+    @action(detail=False, methods=['get'], url_path='latest')
+    def latest_app_template(self, request):
+        latest_template = AppTemplateModel.objects.filter(user=request.user).order_by('-created_at').first()
+        if latest_template:
+            serializer = self.get_serializer(latest_template)
+            return Response(serializer.data, status=status.HTTP_200_OK)
+        return Response({'detail': 'No app template found.'}, status=status.HTTP_404_NOT_FOUND)
+    
+
+
     
 
         

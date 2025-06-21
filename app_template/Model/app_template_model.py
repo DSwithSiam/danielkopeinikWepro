@@ -12,11 +12,11 @@ class AppTemplateModel(models.Model):
         max_length=50,
         choices=subscription_category,
         default='prices_lists',
-        verbose_name='rices Lists'
+        verbose_name='prices Lists'
     )
 
     user = models.ForeignKey(CustomUser, on_delete=models.CASCADE, related_name='app_templates')
-    title = models.CharField(max_length=255, verbose_name='Title',unique=True,db_index=True)
+    title = models.CharField(max_length=255, verbose_name='Title',db_index=True)
     email = models.EmailField(max_length=255, verbose_name='Email', null=True, blank=True)
     contact = models.CharField(max_length=20, verbose_name='Contact', null=True, blank=True)
     description = models.TextField(verbose_name='Description', null=True, blank=True) 

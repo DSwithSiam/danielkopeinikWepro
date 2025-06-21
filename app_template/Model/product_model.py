@@ -9,6 +9,9 @@ class ProductModel(models.Model):
     price = models.FloatField(default=0.0)
     product_image =models.ImageField(upload_to='app_template_images/', verbose_name='Product Image', null=True, blank=True)
 
+    description = models.TextField(null=True,blank=True)
+    email = models.EmailField(null=True,blank=True)
+
 
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
