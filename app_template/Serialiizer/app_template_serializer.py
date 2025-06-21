@@ -11,6 +11,8 @@ from app_template.Model.template_image_model import TemplateImageModel
 
 from poster.Model.membership_model  import MemberShipPlan
 
+from app_template.Model.app_visit_model import AppVisitModel
+
 
 from  code_snippet.stripe_user_checkup import has_active_subscription 
 
@@ -22,9 +24,6 @@ class CreateAppTemplateSerializer(serializers.ModelSerializer):
     class Meta:
         model = AppTemplateModel
         exclude =['user']
-
-
-
 
 
     def create(self, validated_data):
@@ -58,6 +57,7 @@ class CreateAppTemplateSerializer(serializers.ModelSerializer):
 class GetAppTemplateSerializer(serializers.ModelSerializer):
 
     user = GetUserSerializer(read_only=True) 
+    app_visit_count = serializers.SerializerMethodField()
 
     
 
@@ -65,7 +65,24 @@ class GetAppTemplateSerializer(serializers.ModelSerializer):
 
         model = AppTemplateModel
         fields = '__all__'
-       
+
+    def get_app_visit_count(self,obj):
+
+        request = self.context.get('request',None)
+
+        
+
+        if request and request.user.is_authenticated :
+
+            return AppVisitModel.objects.filter(
+                template=obj,
+                user = request.user
+            ).count()
+        
+        return 0 
+
+
+
 
 
 
