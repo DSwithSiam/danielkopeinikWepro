@@ -14,8 +14,8 @@ from app_template.Model.template_image_model import TemplateImageModel
 # create serializer for AppTemplateModel 
 
 
-
 # class CreateAppTemplateSerializer(serializers.ModelSerializer):
+
 
 
 # class CreateAppTemplateSerializer(serializers.ModelSerializer):

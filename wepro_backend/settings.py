@@ -43,14 +43,12 @@ DEFAULT_APPS =[
 PROJECT_APPS = [
 
     'app_template',
-<<<<<<< HEAD
+
     'accounts',
     'dashboard',
     'notifications',
     'chat_bot',
-=======
     'poster'
->>>>>>> origin/feature_rahim
 ]
 
 
@@ -255,6 +253,19 @@ CORS_ALLOWED_ORIGINS = [
 
 
 
-# OPENAI_API_KEY= ""
-# STRIPE_PUBLIC_KEY = "pk_test_51OXdHWFvvW23GozqFvd4UOjV8dig6tr9xrS8OI1tQtHQLM1Bmp93SjKqcPFlfzjB1p5N7pqzsWkH0u9WjPQ6GgP700wCQY1NnR"
-# STRIPE_SECRET_KEY  = "sk_test_51OXdHWFvvW23GozqQWzgshPAf66cX6EhWQ8MBpEoLaZiEBMZKNmgLR0zYUZfedZXwDEVJN3mcSFOG3OlPk2KGeiw00gm81YC9z"
+
+STRIPE_PUBLIC_KEY="pk_test_51RDxTfIiLS71BbHakfFsZcBJ3QJjkQtBVqowI63cWlv9tfyjPu7JoEVrGdSqKyywckwqNryftghII9F5D9lOBuG500ta1V56wf"
+STRIPE_SECRET_KEY ="sk_test_51RDxTfIiLS71BbHaudFiV0V4bEPZkDQvJ3P7pqUzGoc4WYikVUDhzuVeVY4QmKuPKOWS2d8yYtuxRQSH3VYeLMTk00AgafNJHa"
+STRIPE_WEBHOOK_SECRET='whsec_a029e0c9b5c5840cc24aa98e830c3a5f15b16c9e7b11566e90134a2142acd305'
+
+
+# Product Price 
+
+
+
+
+STRIPE_PRODUCT_PRICES = {
+    'we_free':'price_1RabhiIiLS71BbHaB4lFa1zl',     
+    'We-Basic':'price_1RabjpIiLS71BbHazTkCJYo5',        
+    'We-Pro':'price_1RabkrIiLS71BbHaLqt6QCVy'  
+}

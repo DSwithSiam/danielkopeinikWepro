@@ -11,6 +11,8 @@ class CustomUserManager(UserManager):
         user.save(using=self._db)
         return user
 
+
+
 class CustomUser(AbstractUser):
     email = models.EmailField(unique=True)
     username = models.CharField(max_length=150) 
@@ -19,14 +21,9 @@ class CustomUser(AbstractUser):
     image = models.ImageField(upload_to='users_images/', blank=True, null=True)
 
 
-    otp = models.CharField(max_length=10, blank=True, null=True)
-    auth_provider = models.CharField(max_length=50, blank=True, null=True)
-    is_active = models.BooleanField(default=True)
-    is_staff = models.BooleanField(default=False)  
-    created_at = models.DateTimeField(auto_now_add=True)
-    
-    USERNAME_FIELD = "email"
-    REQUIRED_FIELDS = []
+    stripe_customer_id = models.CharField(max_length=255, blank=True, null=True)
+ 
+  
 
     otp = models.CharField(max_length=10, blank=True, null=True)
     auth_provider = models.CharField(max_length=50, blank=True, null=True)

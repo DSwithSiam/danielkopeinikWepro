@@ -175,7 +175,7 @@ def login(request):
         if user is not None:
             refresh = RefreshToken.for_user(user)
             access_token = str(refresh.access_token)
-            return Response({'email': user.email, 'access_token': access_token, 'refresh_token': str(refresh), }, status=status.HTTP_200_OK)
+            return Response({'id':user.pk,'email': user.email, 'access_token': access_token, 'refresh_token': str(refresh), }, status=status.HTTP_200_OK)
         else:
             return Response({'detail': 'Invalid credentials'}, status=status.HTTP_400_BAD_REQUEST)
         

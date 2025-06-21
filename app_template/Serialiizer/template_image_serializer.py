@@ -16,13 +16,13 @@ class TemplateImageSerializer(serializers.ModelSerializer):
 
 
 
-<<<<<<< HEAD
 
-=======
 class GetTemplateImageSerializer(serializers.ModelSerializer):
 
     # template=GetAppTemplateSerializer(read_only=True,many=False)
     class Meta:
         model = TemplateImageModel
-        fields = ['image', 'image_title']
->>>>>>> origin/feature_rahim
+        fields = ['id','image', 'image_title']
+
+
+
