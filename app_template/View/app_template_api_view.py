@@ -97,21 +97,8 @@ class AppTemplateModelViewSet(ModelViewSet):
     
 
     # This portion used app template  fully overview 
-  
-    # @action(detail=True, methods=['get'], url_path='detailed/list')
-    # def detailed_list(self, request,pk=None):
-    #     from app_template.Serialiizer.app_template_serializer import OverallAppTemplateSerializer
 
-    #     if id:
-
-    #         queryset = AppTemplateModel.objects.filter(id=pk,user=request.user).order_by('-created_at')
-    #     else:
-    #         queryset = AppTemplateModel.objects.filter(user=request.user).order_by('-created_at')
-
-    #     serializer = OverallAppTemplateSerializer(queryset, many=True)
-    #     return Response(serializer.data, status=status.HTTP_200_OK)
-
-     # ✅ Case 1: Full list of detailed templates (no ID required)
+     #  Case 1: Full list of detailed templates (no ID required)
     @action(detail=False, methods=['get'], url_path='detailed/list')
     def detailed_list(self, request):
         from app_template.Serialiizer.app_template_serializer import OverallAppTemplateSerializer
@@ -119,7 +106,7 @@ class AppTemplateModelViewSet(ModelViewSet):
         serializer = OverallAppTemplateSerializer(queryset, many=True, context={'request': request})
         return Response(serializer.data, status=status.HTTP_200_OK)
 
-    # ✅ Case 2: Detailed view of one template by ID
+    #  Case 2: Detailed view of one template by ID
     @action(detail=True, methods=['get'], url_path='detailed/view')
     def detailed_view(self, request, pk=None):
         from app_template.Serialiizer.app_template_serializer import OverallAppTemplateSerializer

@@ -116,7 +116,7 @@ class OverallAppTemplateSerializer(serializers.ModelSerializer):
     user = GetUserSerializer(read_only=True) 
     brand= serializers.SerializerMethodField()
     products= serializers.SerializerMethodField()
-    # extra_images= serializers.SerializerMethodField()
+    extra_images= serializers.SerializerMethodField()
 
     
 
@@ -153,6 +153,15 @@ class OverallAppTemplateSerializer(serializers.ModelSerializer):
 
 
         return OnlyProductSerializer(products,many=True,context={'request': request}).data 
+    
+    def get_extra_images(self,obj):
+
+        from app_template.Serialiizer.template_image_serializer import TemplateImageSerializer
+
+        extra_images= obj.template_images.all()
+        request = self.context.get('request')
+
+        return TemplateImageSerializer(extra_images,many=True,context={'request':request}).data 
     
     
         
