@@ -31,4 +31,21 @@ class GetBrandSerializer(serializers.ModelSerializer):
         fields = '__all__'
 
 
+
+# only for using main app website 
+
+
+
+
+
+
+class OnlyBrandSerializer(serializers.ModelSerializer):
+
+    
+    class Meta:
+
+        model = BrandModel
+        exclude = ['customer']
+
+
         

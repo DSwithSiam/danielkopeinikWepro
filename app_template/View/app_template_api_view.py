@@ -73,6 +73,26 @@ class AppTemplateModelViewSet(ModelViewSet):
             return Response(serializer.data, status=status.HTTP_200_OK)
         return Response({'detail': 'No app template found.'}, status=status.HTTP_404_NOT_FOUND)
     
+    # this return only auth user based template 
+    @action(detail=False,methods=['get'],url_path='auth/only')
+    def auth_user_based_template(self,request):
+
+        auth_user_app = AppTemplateModel.objects.filter(user=request.user)
+
+        if auth_user_app:
+
+            serializer = self.get_serializer(auth_user_app)
+
+            return Response(serializer.data,status=status.HTTP_200_OK)
+        
+        return Response(
+            {
+                'error':'not created any app yet, please create!!'
+            },
+            status=status.HTTP_400_OK
+        )
+
+    
 
 
     

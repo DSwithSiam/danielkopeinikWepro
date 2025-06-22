@@ -14,7 +14,7 @@ from rest_framework.permissions import IsAuthenticated,IsAdminUser
 
 class BrandModelViewSet(ModelViewSet):
 
-    queryset = BrandModel.objects.select_related('customer')
+    # queryset = BrandModel.objects.select_related('customer').filter(customer=self.request.user)
     serializer_class = BrandSerializer
     permission_classes = [IsAuthenticated]
     pagination_class = None 
@@ -31,6 +31,10 @@ class BrandModelViewSet(ModelViewSet):
     def perform_create(self,serializer):
 
         serializer.save(customer = self.request.user)
+
+    def get_queryset(self):
+
+        return BrandModel.objects.select_related('customer').filter(customer = self.request.user)
 
 
 

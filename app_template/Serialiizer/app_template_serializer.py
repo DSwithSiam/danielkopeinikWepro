@@ -13,6 +13,8 @@ from poster.Model.membership_model  import MemberShipPlan
 
 from app_template.Model.app_visit_model import AppVisitModel
 
+from poster.Serializer.brand_serializer import OnlyBrandSerializer 
+from poster.Model.brand_model import BrandModel 
 
 from  code_snippet.stripe_user_checkup import has_active_subscription 
 
@@ -58,6 +60,7 @@ class GetAppTemplateSerializer(serializers.ModelSerializer):
 
     user = GetUserSerializer(read_only=True) 
     app_visit_count = serializers.SerializerMethodField()
+    brand= serializers.SerializerMethodField()
 
     
 
@@ -70,8 +73,6 @@ class GetAppTemplateSerializer(serializers.ModelSerializer):
 
         request = self.context.get('request',None)
 
-        
-
         if request and request.user.is_authenticated :
 
             return AppVisitModel.objects.filter(
@@ -80,12 +81,16 @@ class GetAppTemplateSerializer(serializers.ModelSerializer):
             ).count()
         
         return 0 
+    
+    def get_brand(self,obj):
 
+        try:
+            brand = obj.user.brand_author
 
-
-
-
-
+            return  OnlyBrandSerializer(brand).data 
+        
+        except BrandModel.DoesNotExist:
+            return None 
 
 
 
@@ -95,3 +100,41 @@ class UpdateAppTemplateSerializer(serializers.ModelSerializer):
     class Meta:
         model = AppTemplateModel
         fields = '__all__'
+
+
+
+# This Serializer used for overall app template serializer where brand,products for price_lists , additional_image for other app user 
+
+
+
+class OverallAppTemplateSerializer(serializers.ModelSerializer):
+
+    user = GetUserSerializer(read_only=True) 
+    brand= serializers.SerializerMethodField()
+    products= serializers.SerializerMethodField()
+    extra_images= serializers.SerializerMethodField()
+
+    
+
+    class Meta:
+
+        model = AppTemplateModel
+        fields = '__all__'
+
+    
+    
+    def get_brand(self,obj):
+
+        try:
+            brand = obj.user.brand_author
+
+            return  OnlyBrandSerializer(brand).data 
+        
+        except BrandModel.DoesNotExist:
+            return None 
+
+    def get_products(self,obj):
+
+        
+        # products= obj.
+        pass 

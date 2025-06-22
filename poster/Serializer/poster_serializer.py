@@ -3,12 +3,13 @@ from  rest_framework import serializers
 from poster.Model.poster_model import  PosterModel 
 
 from app_template.Serialiizer.app_template_serializer import GetAppTemplateSerializer 
-
+from app_template.Model.app_template_model  import AppTemplateModel 
 
 
 
 class CreatePosterSerializer(serializers.ModelSerializer):
 
+    app_template= serializers.PrimaryKeyRelatedField(queryset=AppTemplateModel.objects.all(),many=False)
     class Meta:
 
         model  = PosterModel

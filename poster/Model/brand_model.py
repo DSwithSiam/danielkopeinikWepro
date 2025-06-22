@@ -9,6 +9,7 @@ class BrandModel(models.Model):
 
     company_name = models.CharField(max_length=200, unique=True)
     company_logo = models.ImageField(upload_to='app_template_images/', verbose_name='company logo image', null=True, blank=True)
+    profile_picture= models.ImageField(upload_to='app_template_images/', verbose_name='company profile image', null=True, blank=True)
     facebook_link = models.TextField(null=True,blank=True)
     instagram_link = models.TextField(null=True,blank=True)
     twiter_link = models.TextField(null=True,blank=True)
