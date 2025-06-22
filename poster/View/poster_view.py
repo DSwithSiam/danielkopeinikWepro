@@ -36,6 +36,4 @@ class PostModelViewSet(ModelViewSet):
         queryset = queryset.order_by('-created_at')
 
         
-        
-
         return queryset

@@ -6,7 +6,8 @@ from  rest_framework.viewsets import ModelViewSet
 from app_template.Serialiizer.app_template_serializer import (
     CreateAppTemplateSerializer,
     GetAppTemplateSerializer,
-    UpdateAppTemplateSerializer
+    UpdateAppTemplateSerializer,
+    # OverallAppTemplateSerializer
 )
 
 from app_template.Model.app_template_model import AppTemplateModel 
@@ -73,15 +74,17 @@ class AppTemplateModelViewSet(ModelViewSet):
             return Response(serializer.data, status=status.HTTP_200_OK)
         return Response({'detail': 'No app template found.'}, status=status.HTTP_404_NOT_FOUND)
     
+
+    
     # this return only auth user based template 
     @action(detail=False,methods=['get'],url_path='auth/only')
     def auth_user_based_template(self,request):
 
-        auth_user_app = AppTemplateModel.objects.filter(user=request.user)
+        auth_user_app = AppTemplateModel.objects.filter(user=request.user).order_by('-created_at')
 
         if auth_user_app:
 
-            serializer = self.get_serializer(auth_user_app)
+            serializer = self.get_serializer(auth_user_app,many=True)
 
             return Response(serializer.data,status=status.HTTP_200_OK)
         
@@ -91,6 +94,42 @@ class AppTemplateModelViewSet(ModelViewSet):
             },
             status=status.HTTP_400_OK
         )
+    
+
+    # This portion used app template  fully overview 
+  
+    # @action(detail=True, methods=['get'], url_path='detailed/list')
+    # def detailed_list(self, request,pk=None):
+    #     from app_template.Serialiizer.app_template_serializer import OverallAppTemplateSerializer
+
+    #     if id:
+
+    #         queryset = AppTemplateModel.objects.filter(id=pk,user=request.user).order_by('-created_at')
+    #     else:
+    #         queryset = AppTemplateModel.objects.filter(user=request.user).order_by('-created_at')
+
+    #     serializer = OverallAppTemplateSerializer(queryset, many=True)
+    #     return Response(serializer.data, status=status.HTTP_200_OK)
+
+     # ✅ Case 1: Full list of detailed templates (no ID required)
+    @action(detail=False, methods=['get'], url_path='detailed/list')
+    def detailed_list(self, request):
+        from app_template.Serialiizer.app_template_serializer import OverallAppTemplateSerializer
+        queryset = AppTemplateModel.objects.filter(user=request.user).order_by('-created_at')
+        serializer = OverallAppTemplateSerializer(queryset, many=True, context={'request': request})
+        return Response(serializer.data, status=status.HTTP_200_OK)
+
+    # ✅ Case 2: Detailed view of one template by ID
+    @action(detail=True, methods=['get'], url_path='detailed/view')
+    def detailed_view(self, request, pk=None):
+        from app_template.Serialiizer.app_template_serializer import OverallAppTemplateSerializer
+        try:
+            template = AppTemplateModel.objects.get(pk=pk, user=request.user)
+        except AppTemplateModel.DoesNotExist:
+            return Response({'error': 'Template not found or access denied.'}, status=status.HTTP_404_NOT_FOUND)
+
+        serializer = OverallAppTemplateSerializer(template, context={'request': request})
+        return Response(serializer.data, status=status.HTTP_200_OK)
 
     
 

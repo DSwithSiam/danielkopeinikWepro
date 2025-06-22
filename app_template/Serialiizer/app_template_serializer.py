@@ -19,6 +19,9 @@ from poster.Model.brand_model import BrandModel
 from  code_snippet.stripe_user_checkup import has_active_subscription 
 
 
+# from app_template.Serialiizer.product_serializer import OnlyProductSerializer
+
+
 
 class CreateAppTemplateSerializer(serializers.ModelSerializer):
     template_images = TemplateImageSerializer(many=True, write_only=True, required=False)
@@ -63,7 +66,6 @@ class GetAppTemplateSerializer(serializers.ModelSerializer):
     brand= serializers.SerializerMethodField()
 
     
-
     class Meta:
 
         model = AppTemplateModel
@@ -82,17 +84,21 @@ class GetAppTemplateSerializer(serializers.ModelSerializer):
         
         return 0 
     
-    def get_brand(self,obj):
+    def get_brand(self, obj):
 
         try:
             brand = obj.user.brand_author
+            request = self.context.get('request')  # ✅ forward context
 
-            return  OnlyBrandSerializer(brand).data 
-        
+            return OnlyBrandSerializer(brand, context={'request': request}).data
         except BrandModel.DoesNotExist:
-            return None 
+            return None
 
 
+
+
+
+# This serializer used only for updating 
 
 class UpdateAppTemplateSerializer(serializers.ModelSerializer):
     # template_images = TemplateImageSerializer(many=True, write_only=True, required=False)
@@ -105,14 +111,12 @@ class UpdateAppTemplateSerializer(serializers.ModelSerializer):
 
 # This Serializer used for overall app template serializer where brand,products for price_lists , additional_image for other app user 
 
-
-
 class OverallAppTemplateSerializer(serializers.ModelSerializer):
 
     user = GetUserSerializer(read_only=True) 
     brand= serializers.SerializerMethodField()
     products= serializers.SerializerMethodField()
-    extra_images= serializers.SerializerMethodField()
+    # extra_images= serializers.SerializerMethodField()
 
     
 
@@ -122,19 +126,35 @@ class OverallAppTemplateSerializer(serializers.ModelSerializer):
         fields = '__all__'
 
     
-    
-    def get_brand(self,obj):
+     
+    # def get_brand(self,obj):
 
+    #     try:
+    #         brand = obj.user.brand_author
+    #         return  OnlyBrandSerializer(brand).data 
+        
+    #     except BrandModel.DoesNotExist:
+    #         return None 
+
+    def get_brand(self, obj):
+        
         try:
             brand = obj.user.brand_author
+            request = self.context.get('request') 
 
-            return  OnlyBrandSerializer(brand).data 
-        
+            return OnlyBrandSerializer(brand, context={'request': request}).data
         except BrandModel.DoesNotExist:
-            return None 
+            return None
 
     def get_products(self,obj):
+        from app_template.Serialiizer.product_serializer import OnlyProductSerializer
+        products= obj.product_template.all()
+        request= self.context.get('request')
 
+
+        return OnlyProductSerializer(products,many=True,context={'request': request}).data 
+    
+    
         
-        # products= obj.
-        pass 
+
+

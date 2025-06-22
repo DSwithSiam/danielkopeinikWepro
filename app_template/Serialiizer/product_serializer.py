@@ -29,3 +29,16 @@ class GetProductSerializer(serializers.ModelSerializer):
 
 
 
+
+
+
+class OnlyProductSerializer(serializers.ModelSerializer):
+
+   
+    class Meta:
+
+        model = ProductModel
+
+        exclude =['template']
+
+
